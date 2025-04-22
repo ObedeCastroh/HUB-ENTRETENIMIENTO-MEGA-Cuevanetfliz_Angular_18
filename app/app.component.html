@@ -1,0 +1,20 @@
+<div class="app-container">
+  <app-header></app-header>
+  
+  <app-login-modal *ngIf="authService.getLoginModalState()"></app-login-modal>
+  
+  <main>
+    <app-content-list *ngIf="authService.activeView === 'peliculas-series' && authService.estaLogueado()"></app-content-list>
+    <app-genre-filter *ngIf="authService.activeView === 'generos' && authService.estaLogueado()"></app-genre-filter>
+    <app-favorites *ngIf="authService.activeView === 'favoritos' && authService.estaLogueado()"></app-favorites>
+    
+    <div *ngIf="!authService.estaLogueado()" class="welcome-message">
+      <h2>Bienvenido a Cuevanetfliz</h2>
+      <p>Inicia sesión para acceder a todo el contenido</p>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© 2025 Cuevanetfliz - Todos los derechos reservados</p>
+  </footer>
+</div>

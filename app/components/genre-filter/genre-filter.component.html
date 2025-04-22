@@ -1,0 +1,43 @@
+<h2 class="section-title">Géneros</h2>
+<div class="generos-container">
+  <button class="genero-btn" 
+          [class.active]="generoSeleccionado === 'todos'"
+          (click)="filtrarPorGenero('todos')">
+    <i class="fas fa-list"></i> Todos
+  </button>
+  
+  <button class="genero-btn" 
+          *ngFor="let genero of contentService.getGenerosDisponibles()"
+          [class.active]="generoSeleccionado === genero"
+          (click)="filtrarPorGenero(genero)">
+    {{ genero }}
+  </button>
+</div>
+
+<div class="content-container" style="margin-top: 1rem;">
+  <div class="content-card" *ngFor="let item of getContenidoFiltrado()">
+    <img [src]="item.imagen" [alt]="item.titulo" class="card-image">
+    <div class="card-info">
+      <h3 class="card-title">{{ item.titulo }}</h3>
+      <div class="card-meta">
+        <span>{{ item.tipo }}</span>
+        <span>{{ item.año }}</span>
+      </div>
+      <span class="card-genero">{{ item.genero }}</span>
+      <div class="card-actions">
+        <button class="action-btn watch-btn" (click)="verContenido(item.id)">
+          <i class="fas fa-play"></i> Ver
+        </button>
+        <button class="action-btn fav-btn" 
+                [class.favorited]="contentService.getFavoritos().includes(item.id)"
+                (click)="contentService.toggleFavorito(item.id)">
+          <i class="fas fa-heart"></i> {{ contentService.getFavoritos().includes(item.id) ? 'Quitar' : 'Favorito' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <p *ngIf="getContenidoFiltrado().length === 0" class="empty-message">
+    No hay contenido disponible para este género
+  </p>
+</div>

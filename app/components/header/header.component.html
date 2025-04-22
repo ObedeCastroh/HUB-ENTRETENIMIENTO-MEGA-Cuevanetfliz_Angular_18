@@ -1,0 +1,35 @@
+<header>
+    <h1 class="logo">Cuevanetfliz</h1>
+    <div class="user-section">
+      <button *ngIf="!authService.estaLogueado()" 
+              class="login-btn" 
+              (click)="mostrarLoginModal()">
+        Iniciar Sesión
+      </button>
+      
+      <div *ngIf="authService.estaLogueado()" class="user-info">
+        <span>Bienvenido, admin</span>
+        <button class="logout-btn" (click)="logout()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </header>
+  
+  <nav class="main-nav">
+    <button class="nav-btn" 
+            [class.active]="authService.activeView === 'peliculas-series'" 
+            (click)="cambiarVista('peliculas-series')">
+      Series/Películas
+    </button>
+    
+    <button class="nav-btn" 
+            [class.active]="authService.activeView === 'generos'" 
+            (click)="cambiarVista('generos')">
+      Géneros
+    </button>
+    
+    <button class="nav-btn" 
+            [class.active]="authService.activeView === 'favoritos'" 
+            (click)="cambiarVista('favoritos')">
+      Favoritos
+    </button>
+  </nav>

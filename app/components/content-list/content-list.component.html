@@ -1,0 +1,24 @@
+<h2 class="section-title">Series y Películas</h2>
+<div class="content-container">
+  <div class="content-card" *ngFor="let item of contentService.getCatalogo()">
+    <img [src]="item.imagen" [alt]="item.titulo" class="card-image">
+    <div class="card-info">
+      <h3 class="card-title">{{ item.titulo }}</h3>
+      <div class="card-meta">
+        <span>{{ item.tipo }}</span>
+        <span>{{ item.año }}</span>
+      </div>
+      <span class="card-genero">{{ item.genero }}</span>
+      <div class="card-actions">
+        <button class="action-btn watch-btn" (click)="verContenido(item.id)">
+          <i class="fas fa-play"></i> Ver
+        </button>
+        <button class="action-btn fav-btn" 
+                [class.favorited]="esFavorito(item.id)"
+                (click)="toggleFavorito(item.id)">
+          <i class="fas fa-heart"></i> {{ esFavorito(item.id) ? 'Quitar' : 'Favorito' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
